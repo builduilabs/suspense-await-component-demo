@@ -63,7 +63,7 @@ export default async function Home() {
   );
 }
 
-export async function Await<T>({
+async function Await<T>({
   promise,
   children,
 }: {
