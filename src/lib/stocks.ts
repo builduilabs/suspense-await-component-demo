@@ -26,7 +26,63 @@ export const stocks = [
     shares: 12,
     points: trendUp(130, 150, 32),
   },
-];
+] as const;
+
+const stories = {
+  AAPL: [
+    {
+      title: "Apple Announces Record-Breaking iPhone Sales",
+      description:
+        "Cupertino, CA — Apple Inc. (AAPL) reported today that it has shattered all previous records with its latest iPhone sales figures. The tech giant sold over 50 million iPhones in the first week of its latest model's release, driving AAPL stock prices to new highs.",
+    },
+    {
+      title: "Apple Unveils Revolutionary AI-Driven Product Line",
+      description:
+        "San Francisco, CA — Apple Inc. (AAPL) wowed investors and tech enthusiasts alike with the unveiling of its groundbreaking AI-driven product line. The new devices, powered by Apple's cutting-edge artificial intelligence, promise to reshape the future of consumer technology, causing a surge in AAPL stock prices.",
+    },
+    {
+      title: "AAPL Stock Suffers Temporary Dip Amidst Supply Chain Disruption",
+      description:
+        "Cupertino, CA — Apple Inc. (AAPL) faced a minor setback as supply chain disruptions temporarily affected the production of its flagship products. While analysts believe this to be a short-term issue, it caused a brief dip in AAPL stock prices, creating buying opportunities for savvy investors.",
+    },
+  ],
+  MSFT: [
+    {
+      title: "Microsoft Reports Strong Q3 Earnings, Beats Expectations",
+      description:
+        "Redmond, WA — Microsoft Corporation (MSFT) announced its Q3 earnings today, surpassing market expectations. The tech giant reported robust revenue growth across its cloud computing, software, and hardware divisions, leading to a surge in MSFT stock prices.",
+    },
+    {
+      title: "Microsoft Unveils Revolutionary Augmented Reality Headset",
+      description:
+        "Seattle, WA — Microsoft Corporation (MSFT) unveiled its groundbreaking augmented reality headset, promising to revolutionize the way people work and play. The innovative device generated significant buzz among investors and consumers, propelling MSFT stock prices to new heights.",
+    },
+  ],
+  META: [
+    {
+      title:
+        "META Platforms Announces Strong Quarter with Robust Advertising Revenue",
+      description:
+        "Menlo Park, CA — META Platforms, Inc. (META) reported a strong quarter, driven by its advertising business. The company's innovative ad targeting and engagement strategies resulted in record-breaking advertising revenue, sending META stock prices soaring.",
+    },
+    {
+      title: "META Unveils Ambitious Metaverse Expansion Plans",
+      description:
+        "Palo Alto, CA — META Platforms, Inc. (META) unveiled ambitious plans for its metaverse expansion. The company announced strategic partnerships, acquisitions, and content creation initiatives aimed at establishing itself as the leader in the metaverse space. Investors responded positively, pushing META stock to new highs.",
+    },
+    {
+      title: "META Faces Regulatory Challenges as Privacy Concerns Mount",
+      description:
+        "San Francisco, CA — META Platforms, Inc. (META) encountered regulatory hurdles as concerns over user privacy and data security grew. Government agencies initiated investigations into the company's practices, causing fluctuations in META stock prices and uncertainty among investors.",
+    },
+  ],
+} as const;
+
+export async function getStories(stock: Stock) {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  return stories[stock.name];
+}
 
 export type Stock = (typeof stocks)[number];
 
