@@ -19,18 +19,24 @@ import StockCard from "@/components/stock-card";
 
 export default async function Home() {
   return (
-    <div className="-mt-6 space-y-2">
-      {stocks.map((stock) => (
-        <Link
-          href={`/stocks/${stock.name}`}
-          key={stock.name}
-          className="block hover:bg-gray-700/50 rounded-lg -mx-4 px-4"
-        >
-          <div className="py-6">
-            <StockCard stock={stock} />
-          </div>
+    <div>
+      <div className="mt-4">
+        <Link href="/" className="tracking-tighter font-bold text-4xl">
+          Stocks
         </Link>
-      ))}
+      </div>
+
+      <div className="mt-8 space-y-3">
+        {stocks.map((stock) => (
+          <Link
+            href={`/stocks/${stock.name}`}
+            key={stock.name}
+            className="block hover:bg-gray-700/50 rounded-lg"
+          >
+            <StockCard border stock={stock} />
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

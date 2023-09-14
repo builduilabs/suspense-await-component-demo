@@ -1,9 +1,21 @@
 import { Stock } from "@/lib/stocks";
 import { SVGProps } from "react";
 
-export default function StockCard({ stock }: { stock: Stock }) {
+export default function StockCard({
+  stock,
+  border = false,
+}: {
+  stock: Stock;
+  border?: boolean;
+}) {
   return (
-    <div className="w-full flex">
+    <div
+      className={`${
+        border
+          ? "bg-gray-700/75 px-3 py-5 rounded-lg border border-white/5"
+          : ""
+      } w-full flex items-center`}
+    >
       <div className="w-[25%]">
         <p className="uppercase font-bold tracking-wide">{stock.name}</p>
         <p className="text-sm text-gray-400">{stock.shares} shares</p>
