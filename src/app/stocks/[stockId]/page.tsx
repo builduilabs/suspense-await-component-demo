@@ -1,6 +1,6 @@
 import Spinner from "@/components/spinner";
 import StockCard from "@/components/stock-card";
-import { Stock, getStock, getStories } from "@/lib/stocks";
+import { getStock, getStories } from "@/lib/stocks";
 import { ChevronLeftIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import { notFound } from "next/navigation";
