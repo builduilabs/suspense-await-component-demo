@@ -17,7 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full text-gray-50 bg-gray-800">
       <body className={`${inter.className} antialiased font-sans h-full`}>
-        {children}
+        <div className="p-6 md:p-8 flex flex-col h-full max-w-md mx-auto">
+          <h1 className="tracking-tighter font-bold text-5xl">Stocks</h1>
+
+          <div className="grow mt-10 md:mt-12">{children}</div>
+        </div>
       </body>
     </html>
   );

@@ -1,5 +1,8 @@
 import { SVGProps, Suspense } from "react";
 import { RefreshButton } from "./refresh-button";
+import Link from "next/link";
+import { stocks } from "@/lib/stocks";
+import StockCard from "@/components/stock-card";
 
 async function getStocks() {
   // simulate a data fetch
@@ -10,55 +13,22 @@ async function getStocks() {
   return data;
 }
 
+// {/* <Suspense fallback={<Loading />} key={new Date().toString()}>
+//   <Await promise={promise}>
+//     {(stocks) => ( */}
+
 export default async function Home() {
-  const promise = getStocks();
-
   return (
-    <div className="p-6 md:p-8 flex flex-col h-full max-w-md mx-auto">
-      <h1 className="tracking-tighter font-bold text-5xl">Stocks</h1>
-
-      <div className="grow mt-10 md:mt-12">
-        <Suspense fallback={<Loading />} key={new Date().toString()}>
-          <Await promise={promise}>
-            {(stocks) => (
-              <div className="space-y-5 md:space-y-8 md:[&>*:nth-child(n+3)]:hidden lg:[&>*:nth-child(n+3)]:flex">
-                {stocks.map((stock, i) => (
-                  <div
-                    key={stock.name}
-                    className={`flex w-full items-center border-b border-white/10 pb-5 md:pb-8`}
-                  >
-                    <div className="w-[25%]">
-                      <p className="uppercase font-bold tracking-wide">
-                        {stock.name}
-                      </p>
-                      <p className="text-sm text-gray-400">
-                        {stock.shares} shares
-                      </p>
-                    </div>
-                    <div className="w-[43%]">
-                      <div className="border-b border-white/10 border-dashed w-full pb-1">
-                        <Sparkline
-                          plot={stock.points}
-                          className="w-24 h-8 stroke-white/90"
-                        />
-                      </div>
-                    </div>
-                    <div className="w-[30%] flex items-center justify-end">
-                      <span className=" bg-gray-50 text-gray-900 py-1.5 px-3 rounded text-sm">
-                        +{stock.change.toFixed(2)}%
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </Await>
-        </Suspense>
-      </div>
-
-      <div className="mt-16">
-        <RefreshButton />
-      </div>
+    <div className="divide-y divide-gray-700">
+      {stocks.map((stock) => (
+        <Link
+          href={`/stocks/${stock.name}`}
+          key={stock.name}
+          className="block py-8"
+        >
+          <StockCard stock={stock} />
+        </Link>
+      ))}
     </div>
   );
 }
@@ -75,29 +45,29 @@ async function Await<T>({
   return children(result);
 }
 
-const stocks = [
-  {
-    name: "AAPL",
-    price: 149,
-    change: 3.21,
-    shares: 3,
-    points: trendUp(130, 149, 32),
-  },
-  {
-    name: "MSFT",
-    price: 131,
-    change: 1.0,
-    shares: 8,
-    points: trendFlat(130, 150, 32),
-  },
-  {
-    name: "META",
-    price: 131,
-    change: 3.5,
-    shares: 12,
-    points: trendUp(130, 150, 32),
-  },
-];
+// const stocks = [
+//   {
+//     name: "AAPL",
+//     price: 149,
+//     change: 3.21,
+//     shares: 3,
+//     points: trendUp(130, 149, 32),
+//   },
+//   {
+//     name: "MSFT",
+//     price: 131,
+//     change: 1.0,
+//     shares: 8,
+//     points: trendFlat(130, 150, 32),
+//   },
+//   {
+//     name: "META",
+//     price: 131,
+//     change: 3.5,
+//     shares: 12,
+//     points: trendUp(130, 150, 32),
+//   },
+// ];
 
 function Loading() {
   return (
@@ -198,6 +168,8 @@ function Sparkline({
   );
 }
 
+export const runtime = "edge";
+
 function scaleBetween(list: number[], scaledMin: number, scaledMax: number) {
   var max = Math.max(...list);
   var min = Math.min(...list);
@@ -205,36 +177,3 @@ function scaleBetween(list: number[], scaledMin: number, scaledMax: number) {
     (num) => ((scaledMax - scaledMin) * (num - min)) / (max - min) + scaledMin,
   );
 }
-
-function random(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
-
-function trendUp(min: number, max: number, length: number) {
-  let a = 1;
-  let b = 100;
-  let c = 7;
-  let d = 10;
-
-  let upwards = Array.from(Array(length - 2)).map((_, i) => {
-    let n = a * i * i + random((-b * i) / c, (b * i) / d);
-    return n;
-  });
-
-  let trend = scaleBetween(upwards, min, max);
-
-  return [min, ...trend, max];
-}
-
-function trendFlat(min: number, max: number, length: number) {
-  let flat = Array.from(Array(length - 2)).map((_, i) => {
-    let n = random(min, max);
-    return n;
-  });
-
-  let trend = scaleBetween(flat, min, max);
-
-  return [min, ...trend, max];
-}
-
-export const runtime = "edge";
