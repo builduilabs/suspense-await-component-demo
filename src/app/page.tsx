@@ -19,14 +19,17 @@ import StockCard from "@/components/stock-card";
 
 export default async function Home() {
   return (
-    <div>
-      <div className="mt-4">
-        <Link href="/" className="tracking-tighter font-bold text-4xl">
+    <>
+      <div>
+        <Link
+          href="/"
+          className="tracking-tighter font-bold text-2xl md:text-4xl"
+        >
           Stocks
         </Link>
       </div>
 
-      <div className="mt-8 space-y-3">
+      <div className="mt-8 space-y-4">
         {stocks.map((stock) => (
           <Link
             href={`/stocks/${stock.name}`}
@@ -37,7 +40,7 @@ export default async function Home() {
           </Link>
         ))}
       </div>
-    </div>
+    </>
   );
 }
 

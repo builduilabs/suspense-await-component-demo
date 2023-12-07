@@ -14,19 +14,24 @@ export default function StockCard({
         border
           ? "bg-gray-700/75 px-3 py-5 rounded-lg border border-white/5"
           : ""
-      } w-full flex items-center`}
+      } w-full flex items-center justify-between`}
     >
       <div className="w-[25%]">
         <p className="uppercase font-bold tracking-wide">{stock.name}</p>
-        <p className="text-sm text-gray-400">{stock.shares} shares</p>
+        <p className="hidden md:block text-sm text-gray-400">
+          {stock.shares} shares
+        </p>
       </div>
       <div className="w-[43%]">
         <div className="border-b border-white/10 border-dashed w-full pb-1">
-          <Sparkline plot={stock.points} className="w-24 h-8 stroke-white/90" />
+          <Sparkline
+            plot={stock.points}
+            className="h-4 md:h-8 stroke-white/90"
+          />
         </div>
       </div>
       <div className="w-[30%] flex items-center justify-end">
-        <span className=" bg-gray-50 text-gray-900 py-1.5 px-3 rounded text-sm">
+        <span className=" bg-gray-50 text-gray-900 font-medium py-1.5 px-3 rounded text-xs md:text-sm">
           +{stock.change.toFixed(2)}%
         </span>
       </div>

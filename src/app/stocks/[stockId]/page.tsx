@@ -15,7 +15,7 @@ export default function Page({ params }: { params: { stockId: string } }) {
 
   return (
     <div>
-      <div className="mt-4">
+      <div>
         <Link
           href="/"
           className="text-xs font-semibold text-gray-500 inline-flex hover:text-gray-200 items-center"
@@ -41,7 +41,7 @@ export default function Page({ params }: { params: { stockId: string } }) {
                     <p className="text-sm font-medium text-white truncate">
                       {story.title}
                     </p>
-                    <p className="mt-2 text-xs text-gray-400 line-clamp-2">
+                    <p className="mt-2 text-xs text-gray-400 line-clamp-1 md:line-clamp-2">
                       {story.description}
                     </p>
                   </li>

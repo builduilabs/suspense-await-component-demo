@@ -15,9 +15,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="text-gray-50 bg-gray-800">
-      <body className={`${inter.className} antialiased font-sans`}>
-        <div className="max-w-md mx-auto">{children}</div>
+    <html lang="en" className="text-gray-50 bg-gray-800 h-full">
+      <body
+        className={`${inter.className} antialiased flex justify-center w-full min-h-full pt-8`}
+      >
+        <div className="w-full max-w-md px-8">{children}</div>
       </body>
     </html>
   );
